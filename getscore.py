@@ -15,7 +15,7 @@ def get_score():
         "xqm": XQM,
         "queryModel.showCount": "100",}
     
-    url = "https://njwxt.swupl.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?doType=query&gnmkdm=N305005"
+    url = "https://jwglxt3.qust.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?gnmkdm=N305005&layout=default"
     headers = {
         "Accept": 'application/json, text/javascript, */*; q=0.01',
         "Accept-Encoding": 'gzip, deflate, br, zstd',
@@ -24,9 +24,9 @@ def get_score():
         "Content-Length": "149",
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         "Cookie": COOKIE,
-        "Host": "njwxt.swupl.edu.cn",
-        "Origin": "https://njwxt.swupl.edu.cn",
-        "Referer": "https://njwxt.swupl.edu.cn/jwglxt/cjcx/cjcx_cxDgXsxmcj.html?gnmkdm=N305007&layout=default",
+        "Host": "jwglxt3.qust.edu.cn",
+        "Origin": "https://jwglxt3.qust.edu.cn",
+        "Referer": "https://jwglxt3.qust.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?gnmkdm=N305005&layout=default",
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",
@@ -40,3 +40,4 @@ def get_score():
     response = requests.post(url, headers=headers, data=data,timeout=30)
     print("教务系统状态码:",response.status_code)
     return response.json()
+
