@@ -21,6 +21,3 @@ def login():
     # 提取Cookie字符串（格式：key1=value1; key2=value2）
     cookie = "; ".join([f"{k}={v}" for k, v in session.cookies.items()])
     print(cookie)  # 输出Cookie，供工作流捕获
-
-if __name__ == "__main__":
-    return response.json()
