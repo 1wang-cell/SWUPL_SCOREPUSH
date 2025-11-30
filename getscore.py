@@ -2,7 +2,7 @@ import requests
 # import secret
 import os
 def get_score():
-   with open("cookie.txt", "r") as f:
+    with open("cookie.txt", "r") as f:
         COOKIE = f.read().strip()  # 从文件中获取Cookie
     XNM = os.environ.get('XNM')
     XQM = os.environ.get('XQM')
@@ -41,6 +41,7 @@ def get_score():
     response = requests.post(url, headers=headers, data=data,timeout=30)
     print("教务系统状态码:",response.status_code)
     return response.json()
+
 
 
 
