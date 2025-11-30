@@ -3,7 +3,7 @@ import requests
 import os
 
 def login():
-    login_url = "https://jwglxt.qsust.edu.cn/jwglxt/xtgl/login_slogin.html"
+    login_url = "https://jwglxt1.qust.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?gnmkdm=N305005&layout=default"
     username = os.environ.get("USERNAME")
     password = os.environ.get("PASSWORD")
     
