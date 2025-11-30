@@ -1,48 +1,43 @@
-# getscore.py
 import requests
-import secret
+# import secret
 import os
-
-def get_cookie():
-    """独立封装获取Cookie的逻辑（从环境变量/secret中读取）"""
-    return os.environ.get("COOKIE") or secret.Cookie
-
 def get_score():
-    COOKIE = get_cookie()  # 先获取当前Cookie
-    XNM = os.environ.get("XNM") or secret.xnm
-    XQM = os.environ.get("XQM") or secret.xqm
-    data = {
+    COOKIE = os.environ.get('COOKIE')
+    XNM = os.environ.get('XNM')
+    XQM = os.environ.get('XQM')
+    
+    # COOKIE = secret.Cookie
+    # XNM = secret.xnm
+    # XQM = secret.xqm
+
+    data={
         "xnm": XNM,
         "xqm": XQM,
-        "queryModel.showCount": "100"
-    }
-    url = "https://jwglxt.qsust.edu.cn/jwglxt/cjcx/cjcx_cxXsgrcj.html?doType=query&gnmkdm=N305005"
+        "queryModel.showCount": "100",}
+    
+    url = "https://jwglxt1.qust.edu.cn/jwglxt/cjcx/cjcx_cxXsgrcj.html?doType=query&gnmkdm=N305005"
     headers = {
-        # 保持原headers不变，仅替换Cookie
-        "cookie": COOKIE,
-        # ... 其他headers
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+        "Connection": "keep-alive",
+        "Content-Length": "162",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        "Cookie": COOKIE,
+        "Host": "jwglxt1.qust.edu.cn",
+        "Origin": "https://jwglxt1.qust.edu.cn",
+        "Referer": "https://jwglxt1.qust.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?gnmkdm=N305005&layout=default",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0",
+        "X-Requested-With": "XMLHttpRequest",
+        "sec-ch-ua": '"Chromium";v="142", "Microsoft Edge";v="142", "Not_A Brand";v="99"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "Windows"
     }
+    
+    response = requests.post(url, headers=headers, data=data,timeout=30)
+    print("教务系统状态码:",response.status_code)
+    return response.json()
 
-    try:
-        response = requests.post(url, headers=headers, data=data, timeout=30)
-        if response.status_code == 200:
-            print("教务系统状态码:", response.status_code)
-            return response.json()
-        else:
-            # 状态码异常，认为Cookie失效，重新获取Cookie并重试
-            print(f"请求失败（状态码{response.status_code}），尝试更新Cookie...")
-            COOKIE = get_cookie()  # 重新获取Cookie（需确保此时环境变量/secret已更新）
-            headers["cookie"] = COOKIE
-            # 重试请求
-            response = requests.post(url, headers=headers, data=data, timeout=30)
-            if response.status_code == 200:
-                return response.json()
-            else:
-                raise Exception(f"Cookie更新后仍请求失败，状态码{response.status_code}")
-    except Exception as e:
-        print(f"请求异常（可能Cookie失效）: {e}")
-        # 异常时也尝试更新Cookie并重试（可选）
-        COOKIE = get_cookie()
-        headers["cookie"] = COOKIE
-        response = requests.post(url, headers=headers, data=data, timeout=30)
-        return response.json()
