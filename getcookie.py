@@ -4,7 +4,7 @@ import os
 
 def login():
     # 1. 首次登录
-    login_url = "https://jwglxt1.qust.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?gnmkdm=N305005&layout=default"  # 注意：需改为真实登录接口（当前URL是成绩页，不是登录页！）
+    login_url = "https://jwglxt1.qust.edu.cn/jwglxt/xtgl/login_slogin.html"  # 注意：需改为真实登录接口（当前URL是成绩页，不是登录页！）
     username = os.environ.get("USERNAME")
     password = os.environ.get("PASSWORD")
     
