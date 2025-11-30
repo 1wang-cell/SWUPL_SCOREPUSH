@@ -11,19 +11,12 @@ def login():
     data = {
         "yhm": username,
         "mm": password,
-        "captcha": ""  # 若有验证码，需补充识别逻辑
     }
 
     session = requests.Session()
     # 首次登录请求
     response = session.post(login_url, data=data, allow_redirects=True)
     print("首次登录状态码:", response.status_code)
-
-
-
-    # 3. 再次登录（获取新Cookie）
-    re_login_response = session.post(login_url, data=data, allow_redirects=True)
-    print("再次登录状态码:", re_login_response.status_code)
 
 
     # 4. 提取并保存最终Cookie
