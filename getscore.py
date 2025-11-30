@@ -40,7 +40,10 @@ def get_score():
     
     response = requests.post(url, headers=headers, data=data,timeout=30)
     print("教务系统状态码:",response.status_code)
+    print(f"返回状态码: {response.status_code}")
+    print(f"返回内容前200字符: {response.text[:200]}")
     return response.json()
+
 
 
 
