@@ -24,12 +24,12 @@ jobs:
         pip install requests
 
     - name: get cookies
-      run: get cookie
         # 注意：文件名如果有空格，需要用引号包裹
       env:
         USERNAME: ${{ secrets.USERNAME }}  # 从Secret获取学号
         PASSWORD: ${{ secrets.PASSWORD }}  # 从Secret获取密码
-
+      run: python getcookie.py
+      
     - name: Run the script
       # 在这里通过 env 关键字将 secrets 设置为环境变量
       env:
