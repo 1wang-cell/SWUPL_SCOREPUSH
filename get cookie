@@ -1,0 +1,26 @@
+import requests
+import os
+
+def login():
+    # 教务系统登录接口（需抓包获取真实URL和参数）
+    login_url = "https://jwglxt.qsust.edu.cn/jwglxt/xtgl/login_slogin.html"
+    username = os.environ.get("USERNAME")
+    password = os.environ.get("PASSWORD")
+
+    # 构造登录请求（需抓包分析真实参数，以下是示例）
+    data = {
+        "yhm": username,  # 学号（字段名需按抓包结果修改）
+        "mm": password,   # 密码（可能需要加密，需抓包确认）
+        "mm": password,
+        "captcha": ""  # 若有验证码，需添加验证码识别（比如用ddddocr库）
+    }
+
+    # 发起登录请求，获取Cookie
+    session = requests.Session()
+    response = session.post(login_url, data=data, allow_redirects=True)
+    # 提取Cookie字符串（格式：key1=value1; key2=value2）
+    cookie = "; ".join([f"{k}={v}" for k, v in session.cookies.items()])
+    print(cookie)  # 输出Cookie，供工作流捕获
+
+if __name__ == "__main__":
+    return response.json()
